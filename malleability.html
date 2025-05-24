@@ -5,186 +5,140 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Malleability Dashboard</title>
   <style>
-    /* === CSS Section === */
+    /* === CSS Styles === */
     body {
       margin: 0;
-      padding: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #ffffff;
+      display: flex;
+      height: 100vh;
+      background-color: #fff;
       color: #333;
     }
 
-    .header {
-      text-align: center;
-      padding: 2rem 1rem;
-      border-bottom: 1px solid #eee;
+    .sidebar {
+      width: 200px;
+      background: #f8f9fa;
+      padding: 1rem;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
 
-    .header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
+    .subject-btn {
+      background: none;
+      border: none;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      text-align: left;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
       color: #555;
     }
 
-    .header p {
-      font-size: 1.2rem;
-      color: #888;
-    }
-
-    .dashboard {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 1rem;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-
-    section {
-      padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      background-color: #fdfdfd;
-    }
-
-    .daily-tasks ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .daily-tasks li {
-      margin: 0.5rem 0;
-    }
-
-    .subject-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
-
-    .subject-buttons button {
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    /* Pastel subject colors */
-    .bio {
-      background-color: #d3f9d8;
-      color: #256029;
-    }
-
-    .chem {
-      background-color: #ffe5ec;
-      color: #a4161a;
-    }
-
-    .phys {
-      background-color: #e0f7fa;
-      color: #006064;
-    }
-
-    .math {
-      background-color: #f0ebf8;
-      color: #4a148c;
-    }
-
-    .latin {
-      background-color: #fff3cd;
-      color: #856404;
-    }
-
-    .music {
-      background-color: #e8eaf6;
+    .subject-btn:hover, .subject-btn.active {
+      background-color: #ddebf7;
       color: #1a237e;
     }
 
-    .xp-tracker, .quote-box {
-      text-align: center;
+    .main-content {
+      flex-grow: 1;
+      padding: 2rem;
+      overflow-y: auto;
     }
 
-    blockquote {
-      font-style: italic;
-      color: #666;
-      margin: 0;
+    .subject-content {
+      display: none;
+    }
+
+    .subject-content.active {
+      display: block;
+    }
+
+    /* Pastel colors per subject button, consistent with theme */
+    .bio { color: #256029; }
+    .chem { color: #a4161a; }
+    .phys { color: #006064; }
+    .math { color: #4a148c; }
+    .latin { color: #856404; }
+    .music { color: #1a237e; }
+
+    /* Header styling inside main content */
+    .subject-content h2 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      color: inherit;
+    }
+
+    /* Example placeholder paragraph styling */
+    .subject-content p {
+      line-height: 1.5;
+      color: #444;
     }
   </style>
 </head>
 <body>
-  <!-- === HTML Section === -->
-  <header class="header">
-    <h1>Malleability Dashboard</h1>
-    <p>Your minimalist study tracker</p>
-  </header>
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar" aria-label="Subject navigation">
+    <button class="subject-btn bio" data-subject="bio">Biology</button>
+    <button class="subject-btn chem" data-subject="chem">Chemistry</button>
+    <button class="subject-btn phys" data-subject="phys">Physics</button>
+    <button class="subject-btn math" data-subject="math">Math</button>
+    <button class="subject-btn latin" data-subject="latin">Latin</button>
+    <button class="subject-btn music" data-subject="music">Music Theory</button>
+  </nav>
 
-  <main class="dashboard">
-    <section class="daily-tasks">
-      <h2>Today's Tasks</h2>
-      <ul>
-        <li>Read Biology chapter 3</li>
-        <li>Watch physics documentary</li>
-        <li>Practice Latin vocabulary</li>
-      </ul>
+  <!-- Main Content Area -->
+  <main class="main-content" tabindex="0">
+    <section id="bio" class="subject-content bio">
+      <h2>Biology</h2>
+      <p>Welcome to Biology! Here you can add your study plans, notes, and resources.</p>
     </section>
-
-    <section class="subjects">
-      <h2>Choose Subject</h2>
-      <div class="subject-buttons">
-        <button class="bio">Biology</button>
-        <button class="chem">Chemistry</button>
-        <button class="phys">Physics</button>
-        <button class="math">Maths</button>
-        <button class="latin">Latin</button>
-        <button class="music">Music Theory</button>
-      </div>
+    <section id="chem" class="subject-content chem">
+      <h2>Chemistry</h2>
+      <p>Welcome to Chemistry! Use this space to keep track of your chemistry topics and tasks.</p>
     </section>
-
-    <section class="xp-tracker">
-      <h2>XP Tracker</h2>
-      <p>You have earned <span id="xp">0</span> XP so far.</p>
-      <button id="add-xp">Add 10 XP</button>
+    <section id="phys" class="subject-content phys">
+      <h2>Physics</h2>
+      <p>This section is for Physics study material and notes.</p>
     </section>
-
-    <section class="quote-box">
-      <h2>Motivational Quote</h2>
-      <blockquote id="quote">"Learning never exhausts the mind." — Leonardo da Vinci</blockquote>
-      <button id="new-quote">New Quote</button>
+    <section id="math" class="subject-content math">
+      <h2>Math</h2>
+      <p>Math resources and practice go here.</p>
+    </section>
+    <section id="latin" class="subject-content latin">
+      <h2>Latin</h2>
+      <p>Latin vocabulary, grammar, and exercises will be organized here.</p>
+    </section>
+    <section id="music" class="subject-content music">
+      <h2>Music Theory</h2>
+      <p>Music Theory notes and resources can be placed in this section.</p>
     </section>
   </main>
 
   <script>
-    // === JavaScript Section ===
+    // === JavaScript for sidebar subject switching ===
+    const buttons = document.querySelectorAll('.subject-btn');
+    const contents = document.querySelectorAll('.subject-content');
 
-    // XP Tracker logic
-    const xpDisplay = document.getElementById('xp');
-    const addXpButton = document.getElementById('add-xp');
-    let xp = 0;
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active states
+        buttons.forEach(b => b.classList.remove('active'));
+        contents.forEach(c => c.classList.remove('active'));
 
-    addXpButton.addEventListener('click', () => {
-      xp += 10;
-      xpDisplay.textContent = xp;
+        // Activate clicked button and corresponding content
+        btn.classList.add('active');
+        const subject = btn.getAttribute('data-subject');
+        document.getElementById(subject).classList.add('active');
+      });
     });
 
-    // Motivational quotes array
-    const quotes = [
-      '"Learning never exhausts the mind." — Leonardo da Vinci',
-      '"The beautiful thing about learning is nobody can take it away from you." — B.B. King',
-      '"Education is the most powerful weapon which you can use to change the world." — Nelson Mandela',
-      '"The mind is not a vessel to be filled but a fire to be kindled." — Plutarch',
-      '"The expert in anything was once a beginner." — Helen Hayes'
-    ];
-
-    const quoteDisplay = document.getElementById('quote');
-    const newQuoteButton = document.getElementById('new-quote');
-
-    newQuoteButton.addEventListener('click', () => {
-      const randomIndex = Math.floor(Math.random() * quotes.length);
-      quoteDisplay.textContent = quotes[randomIndex];
-    });
+    // Automatically activate first subject on load
+    buttons[0].click();
   </script>
 </body>
 </html>
