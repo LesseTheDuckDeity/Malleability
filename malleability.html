@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Malleability Dashboard</title>
+  <style>
+    /* === CSS Section === */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #ffffff;
+      color: #333;
+    }
+
+    .header {
+      text-align: center;
+      padding: 2rem 1rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      color: #555;
+    }
+
+    .header p {
+      font-size: 1.2rem;
+      color: #888;
+    }
+
+    .dashboard {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    section {
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      background-color: #fdfdfd;
+    }
+
+    .daily-tasks ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .daily-tasks li {
+      margin: 0.5rem 0;
+    }
+
+    .subject-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .subject-buttons button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Pastel subject colors */
+    .bio {
+      background-color: #d3f9d8;
+      color: #256029;
+    }
+
+    .chem {
+      background-color: #ffe5ec;
+      color: #a4161a;
+    }
+
+    .phys {
+      background-color: #e0f7fa;
+      color: #006064;
+    }
+
+    .math {
+      background-color: #f0ebf8;
+      color: #4a148c;
+    }
+
+    .latin {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+
+    .music {
+      background-color: #e8eaf6;
+      color: #1a237e;
+    }
+
+    .xp-tracker, .quote-box {
+      text-align: center;
+    }
+
+    blockquote {
+      font-style: italic;
+      color: #666;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- === HTML Section === -->
+  <header class="header">
+    <h1>Malleability Dashboard</h1>
+    <p>Your minimalist study tracker</p>
+  </header>
+
+  <main class="dashboard">
+    <section class="daily-tasks">
+      <h2>Today's Tasks</h2>
+      <ul>
+        <li>Read Biology chapter 3</li>
+        <li>Watch physics documentary</li>
+        <li>Practice Latin vocabulary</li>
+      </ul>
+    </section>
+
+    <section class="subjects">
+      <h2>Choose Subject</h2>
+      <div class="subject-buttons">
+        <button class="bio">Biology</button>
+        <button class="chem">Chemistry</button>
+        <button class="phys">Physics</button>
+        <button class="math">Maths</button>
+        <button class="latin">Latin</button>
+        <button class="music">Music Theory</button>
+      </div>
+    </section>
+
+    <section class="xp-tracker">
+      <h2>XP Tracker</h2>
+      <p>You have earned <span id="xp">0</span> XP so far.</p>
+      <button id="add-xp">Add 10 XP</button>
+    </section>
+
+    <section class="quote-box">
+      <h2>Motivational Quote</h2>
+      <blockquote id="quote">"Learning never exhausts the mind." — Leonardo da Vinci</blockquote>
+      <button id="new-quote">New Quote</button>
+    </section>
+  </main>
+
+  <script>
+    // === JavaScript Section ===
+
+    // XP Tracker logic
+    const xpDisplay = document.getElementById('xp');
+    const addXpButton = document.getElementById('add-xp');
+    let xp = 0;
+
+    addXpButton.addEventListener('click', () => {
+      xp += 10;
+      xpDisplay.textContent = xp;
+    });
+
+    // Motivational quotes array
+    const quotes = [
+      '"Learning never exhausts the mind." — Leonardo da Vinci',
+      '"The beautiful thing about learning is nobody can take it away from you." — B.B. King',
+      '"Education is the most powerful weapon which you can use to change the world." — Nelson Mandela',
+      '"The mind is not a vessel to be filled but a fire to be kindled." — Plutarch',
+      '"The expert in anything was once a beginner." — Helen Hayes'
+    ];
+
+    const quoteDisplay = document.getElementById('quote');
+    const newQuoteButton = document.getElementById('new-quote');
+
+    newQuoteButton.addEventListener('click', () => {
+      const randomIndex = Math.floor(Math.random() * quotes.length);
+      quoteDisplay.textContent = quotes[randomIndex];
+    });
+  </script>
+</body>
+</html>
